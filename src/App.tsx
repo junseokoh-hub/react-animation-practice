@@ -1,6 +1,6 @@
 import GlobalStyle from "./GlobalStyle";
 import styled from "styled-components";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useEffect } from "react";
 
 const Wrapper = styled.div`
@@ -21,12 +21,12 @@ const Box = styled(motion.div)`
 
 function App() {
   const x = useMotionValue(0);
+  const scale = useTransform(x, [-800, 0, 800], [2, 1, 0.1]);
   return (
     <>
       <GlobalStyle />
       <Wrapper>
-        <button onClick={() => x.set(200)}>CLICK ME!</button>
-        <Box style={{ x }} drag="x" dragSnapToOrigin />
+        <Box style={{ x, scale: scale }} drag="x" dragSnapToOrigin />
       </Wrapper>
     </>
   );
