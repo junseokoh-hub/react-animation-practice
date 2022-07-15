@@ -1,7 +1,7 @@
 import GlobalStyle from "./GlobalStyle";
 import styled from "styled-components";
-import { motion } from "framer-motion";
-import { useRef } from "react";
+import { motion, useMotionValue } from "framer-motion";
+import { useEffect } from "react";
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -9,17 +9,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const BiggerBox = styled.div`
-  width: 37em;
-  height: 37em;
-  background-color: rgba(255, 255, 255, 0.4);
-  border-radius: 2.5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
 `;
 
 const Box = styled(motion.div)`
@@ -31,28 +20,13 @@ const Box = styled(motion.div)`
 `;
 
 function App() {
-  const boxVariants = {
-    hover: { rotateZ: 90 },
-    click: { borderRadius: "50%" },
-  };
-
-  const biggerBoxRef = useRef<HTMLDivElement>(null);
-
+  const x = useMotionValue(0);
   return (
     <>
       <GlobalStyle />
       <Wrapper>
-        <BiggerBox ref={biggerBoxRef}>
-          <Box
-            drag
-            dragSnapToOrigin // make it to the center
-            dragElastic={1} // default value: 0.5
-            dragConstraints={biggerBoxRef}
-            variants={boxVariants}
-            whileHover={"hover"}
-            whileTap={"click"}
-          />
-        </BiggerBox>
+        <button onClick={() => x.set(200)}>CLICK ME!</button>
+        <Box style={{ x }} drag="x" dragSnapToOrigin />
       </Wrapper>
     </>
   );
