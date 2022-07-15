@@ -19,15 +19,19 @@ const Box = styled(motion.div)`
 `;
 
 function App() {
+  const myVars = {
+    start: { scale: 0 },
+    end: {
+      scale: 1,
+      rotateZ: 360,
+      transition: { type: "spring", bounce: 0.5, delay: 0.5 },
+    },
+  };
   return (
     <>
       <GlobalStyle />
       <Wrapper>
-        <Box
-          transition={{ type: "spring", bounce: 0.5, delay: 0.5 }}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1, rotateZ: 360 }}
-        />
+        <Box variants={myVars} initial="start" animate="end" />
       </Wrapper>
     </>
   );
